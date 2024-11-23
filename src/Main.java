@@ -2,7 +2,7 @@
 public class Main {
     public static void main(String[] args) {
 
-        OCA oca = OCA.inputOCA("input1.txt");
+        OCA oca = OCA.inputOCA("input.txt");
 
 //        if (oca != null) {
 //            String word1 = "aaabbbaba";
