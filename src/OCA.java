@@ -11,11 +11,16 @@ import java.io.IOException;
 public class OCA {
 //    private String languageName;
     public String languageName;
-    private int numStates;
-    private int initialState;
-    private Set<Integer> finalStates;
-    private char[] alphabet;
-    private int[][] transitionFunction;
+//    private int numStates;
+    public int numStates;
+//    private int initialState;
+    public int initialState;
+//    private Set<Integer> finalStates;
+    public Set<Integer> finalStates;
+//    private char[] alphabet;
+    public char[] alphabet;
+//    private int[][] transitionFunction;
+    public int[][] transitionFunction;
 
     public OCA(String languageName, int numStates, int initialState, Set<Integer> finalStates, char[] alphabet, int[][] transitionFunction) {
         this.languageName = languageName;
