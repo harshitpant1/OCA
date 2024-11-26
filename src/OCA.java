@@ -147,10 +147,10 @@ public class OCA {
         text += "\n}";
 
         String fileName = oca.languageName;
-        boolean hasSpecialChars = Pattern.compile("[^\\w\\d\\s-]").matcher(fileName).find();
+        boolean hasSpecialChars = Pattern.compile("[<>:\"/\\|?*]").matcher(fileName).find();
 
         if (hasSpecialChars) {
-            fileName = fileName.replaceAll("[^\\w\\d\\s-]", "_");
+            fileName = fileName.replaceAll("[<>:\"/\\|?*]", "_");
             fileName += "_lang_name_changed";
         }
 
