@@ -6,20 +6,22 @@ import java.util.Scanner;
 import java.util.Set;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.regex.Pattern;
+
 
 
 public class OCA {
-//    private String languageName;
+    //    private String languageName;
     public String languageName;
-//    private int numStates;
+    //    private int numStates;
     public int numStates;
-//    private int initialState;
+    //    private int initialState;
     public int initialState;
-//    private Set<Integer> finalStates;
+    //    private Set<Integer> finalStates;
     public Set<Integer> finalStates;
-//    private char[] alphabet;
+    //    private char[] alphabet;
     public char[] alphabet;
-//    private int[][] transitionFunction;
+    //    private int[][] transitionFunction;
     public int[][] transitionFunction;
 
     public OCA(String languageName, int numStates, int initialState, Set<Integer> finalStates, char[] alphabet, int[][] transitionFunction) {
@@ -88,7 +90,7 @@ public class OCA {
             int numStates = scanner.nextInt();
             int initialState = scanner.nextInt();
 
-            scanner.nextLine(); 
+            scanner.nextLine();
             String tempStringOfFinalStatesInInput = scanner.nextLine();
 
             String[] tempArrayOfFinalStatesAsStrings = tempStringOfFinalStatesInInput.split(" ");
@@ -144,11 +146,23 @@ public class OCA {
 
         text += "\n}";
 
-        try (FileWriter writer = new FileWriter(oca.languageName)) {
+        String fileName = oca.languageName;
+        boolean hasSpecialChars = Pattern.compile("[^\\w\\d\\s-]").matcher(fileName).find();
+
+        if (hasSpecialChars) {
+            fileName = fileName.replaceAll("[^\\w\\d\\s-]", "_");
+            fileName += "_lang_name_changed";
+        }
+
+        try (FileWriter writer = new FileWriter(fileName)) {
             writer.write(text);
+            System.out.println("Successfully wrote to file: " + fileName);
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
+
+
+
     }
 
     // Helper classes
