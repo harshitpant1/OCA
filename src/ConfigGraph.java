@@ -2,12 +2,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigGraph {
-    private String languageName;
-    private int numStates;
-    private int initialState;
-    private List<Integer> finalStates;
-    private List<Character> alphabet;
-    private List<List<Integer>> transitionFunction;
+//    private String languageName;
+//    private int numStates;
+//    private int initialState;
+//    private List<Integer> finalStates;
+//    private List<Character> alphabet;
+//    private List<List<Integer>> transitionFunction;
+//
+    public String languageName;
+    public int numStates;
+    public int initialState;
+    public List<Integer> finalStates;
+    public List<Character> alphabet;
+    public List<List<Integer>> transitionFunction;
 
     public ConfigGraph(String name, int numStates, int initState, List<Integer> finStates, List<Character> inputAlpha, List<List<Integer>> transitions) {
         this.languageName = name;
@@ -54,7 +61,7 @@ public class ConfigGraph {
         // Create transition function for ConfigGraph
         List<List<Integer>> transitionFunction = new ArrayList<>();
         int numRows = oca.alphabet.length;
-        int numCols = counter_value * numStates;
+        int numCols = (counter_value + 1) * numStates;
 
         // Fill transition function based on OCA transition function
         for (int i = 0; i < numRows; i++) {
