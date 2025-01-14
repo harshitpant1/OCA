@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -8,20 +10,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-
-
 public class OCA {
-    //    private String languageName;
     public String languageName;
-    //    private int numStates;
     public int numStates;
-    //    private int initialState;
     public int initialState;
-    //    private Set<Integer> finalStates;
     public Set<Integer> finalStates;
-    //    private char[] alphabet;
     public char[] alphabet;
-    //    private int[][] transitionFunction;
     public int[][] transitionFunction;
 
     public OCA(String languageName, int numStates, int initialState, Set<Integer> finalStates, char[] alphabet, int[][] transitionFunction) {
@@ -52,37 +46,22 @@ public class OCA {
         return new Pair(nextState, currentCounter + counterChange);
     }
 
-    public boolean testMembership(OCA oca, String word) {
-        int currentState = oca.initialState;
+    public List<Object> getMembershipAndCounterValue(String word) {
+        int currentState = this.initialState;
         int currentCounter = 0;
 
         for (char c : word.toCharArray()) {
-            Pair next = oca.Transition(new Triplet(currentState, currentCounter, c));
+            Pair next = this.Transition(new Triplet(currentState, currentCounter, c));
             if (next == null) {
-                return false; // Invalid transition
+                return new ArrayList<>(Arrays.asList(false, -1)); // Invalid transition
             }
             currentState = next.state;
             currentCounter = next.counter;
         }
 
-        return oca.finalStates.contains(currentState);
+        return new ArrayList<>(Arrays.asList(this.finalStates.contains(currentState), currentCounter));
     }
 
-    public int counterValue(OCA oca, String word) {
-        int currentState = oca.initialState;
-        int currentCounter = 0;
-
-        for (char c : word.toCharArray()) {
-            Pair next = oca.Transition(new Triplet(currentState, currentCounter, c));
-            if (next == null) {
-                return -1; // invalid transition
-            }
-            currentState = next.state;
-            currentCounter = next.counter;
-        }
-
-        return currentCounter;
-    }
 
     public static OCA inputOCA(String filename) {
         try (Scanner scanner = new Scanner(new File(filename))) {
@@ -123,30 +102,30 @@ public class OCA {
         }
     }
 
-    public static void saveOCA(OCA oca){
+    public void saveOCA(){
 
         String text = "digraph automaton {\n";
         text += "0 [label=\"\", shape=point];\n";
         text += "0 -> q_0;";
-        for(int i=0;i<oca.transitionFunction.length;i++){
-            for(int j=0;j<oca.transitionFunction[i].length;j=j+2){
+        for(int i=0;i<this.transitionFunction.length;i++){
+            for(int j=0;j<this.transitionFunction[i].length;j=j+2){
                 int letter_index = i / 2;
-                char letter = oca.alphabet[letter_index];
+                char letter = this.alphabet[letter_index];
                 boolean zero_or_positive = (i % 2) != 0;
 
                 int current_state = j / 2;
-                int next_state = oca.transitionFunction[i][j];
-                text += "\n"+ "q_" + current_state + " -> " + "q_" + next_state+"[label=\"" + letter + ", " + (zero_or_positive?"+":"0") + ", " + oca.transitionFunction[i][j+1] + "\"];";
+                int next_state = this.transitionFunction[i][j];
+                text += "\n"+ "q_" + current_state + " -> " + "q_" + next_state+"[label=\"" + letter + ", " + (zero_or_positive?"+":"0") + ", " + this.transitionFunction[i][j+1] + "\"];";
             }
         }
 
-        for(int i=0;i<oca.numStates;i++){
-            text += "\n"+ "q_"+ i+" [shape = "+ ( oca.finalStates.contains(i)?"doublecircle": "circle") + "];";
+        for(int i=0;i<this.numStates;i++){
+            text += "\n"+ "q_"+ i+" [shape = "+ (this.finalStates.contains(i)?"doublecircle": "circle") + "];";
         }
 
         text += "\n}";
 
-        String fileName = oca.languageName;
+        String fileName = this.languageName;
         boolean hasSpecialChars = Pattern.compile("[<>:\"/\\|?*]").matcher(fileName).find();
 
         if (hasSpecialChars) {
@@ -164,6 +143,8 @@ public class OCA {
 
 
     }
+
+
 
     // Helper classes
     static class Triplet {
