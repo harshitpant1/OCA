@@ -1,5 +1,7 @@
 The `learnBG` function in `Main.java` learns a **Behavior Graph** from a teacher (OCA).
 
+`BehaviourGraph.java` contains the code for labelling. However this code is buggy. 
+
 ### Sample Inputs and Outputs
 
 Here are some example inputs and their corresponding outputs from the `learnBG` function:
@@ -7,7 +9,7 @@ Here are some example inputs and their corresponding outputs from the `learnBG` 
 In the images below, in a vertex/state if the label is `13, 5` then 13 is the name (meaningless) for that state and **5 is the counter value** at that state.
 
 #### Example 1  
-**Input:** [`anbna(a+b)(a+b)`](images/OCA%20for%20image1.txt) `depth (d) = 15`  
+**Input:** Teacher(OCA): [`anbna(a+b)(a+b)`](images/OCA%20for%20image1.txt) `depth (d) = 15`  
 
 **Output:**
 
