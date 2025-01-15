@@ -23,7 +23,7 @@ In the images below, in a vertex/state if the label is `13, 5` then 13 is the na
 ![Output2](images/image2.png)
 
 #### Example 3  
-**Input:** [`anbna`](images/OCA%20for%20image1.txt) `depth (d) = 8`
+**Input:** [`anbna`](images/OCA%20for%20image3.txt) `depth (d) = 8`
 
 **Output:**
 
